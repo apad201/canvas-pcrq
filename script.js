@@ -54,9 +54,9 @@ function inject_styles() {
 function insert_help() {
   const sidebar = document.querySelector('[data-testid="speedgrader-grading-panel"], div#rightside_inner');
   if (!sidebar || sidebar.querySelector('#pcrq-help')) return;
-  // Keep the reference inside the sidebar's scrollable grading content.
+  // Keep the reference at the top of the sidebar's scrollable grading content.
   const content = sidebar.querySelector('[data-testid="assessment"]') || sidebar;
-  const table = `<div id="pcrq-help" style="padding: 12px;">
+  const table = `<div id="pcrq-help" style="padding: 12px; position: sticky; top: 0; z-index: 1; background: #fff; flex-shrink: 0;">
     <h3 style="font-size: 1rem; margin: 0 0 8px;">PCRQ keyboard shortcuts</h3>
     <p style="margin: 0 0 8px;">Scores apply only to ungraded questions.</p>
     <table style="width: 100%; border-collapse: separate; border-spacing: 8px 4px; text-align: left;">
@@ -68,9 +68,10 @@ function insert_help() {
     <tr><td><kbd>h</kbd></td><td>Hide extra elements</td></tr>
     <tr><td><kbd>s</kbd></td><td>Show all elements</td></tr>
     </table>
+    <p>If the shortcut keys aren't working, try clicking on the sidebar.</p>
     <p style="text-align: center;"><a href="https://github.com/dongryul-kim/canvas-pcrq">Link to GitHub repository</a></p></div>`;
   // Preserve Canvas's existing controls and their event handlers.
-  content.insertAdjacentHTML('beforeend', table);
+  content.insertAdjacentHTML('afterbegin', table);
 }
 
 function grade(full_score) {
